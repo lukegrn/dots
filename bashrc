@@ -72,5 +72,8 @@ fi
 alias ol="tmux source-file ~/.tmux_light.conf; tmux set-environment THEME 'light' && killall -s SIGUSR1 nvim"
 alias od="tmux source-file ~/.tmux_dark.conf; tmux set-environment THEME 'dark' && killall -s SIGUSR1 nvim"
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
 [ -f ~/.custom.sh ] && source ~/.custom.sh
 ## Don't put anything below here
+. "$HOME/.cargo/env"

@@ -7,11 +7,15 @@
 require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use 'fatih/vim-go'
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
 	use 'neovim/nvim-lspconfig'
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
-	use 'hrsh7th/cmp-cmdline' use 'hrsh7th/cmp-path' use 'hrsh7th/cmp-vsnip'
+	use 'hrsh7th/cmp-cmdline'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-vsnip'
 	use 'hrsh7th/vim-vsnip'
 	use 'tpope/vim-fugitive'
 	use 'tpope/vim-commentary'
@@ -19,12 +23,7 @@ require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
-	use 'editorconfig/editorconfig-vim'
 	use 'mhinz/vim-signify'
-	use {
-		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-	}
 	use 'tpope/vim-sleuth'
 	use {
 		'nvim-treesitter/nvim-treesitter',
@@ -33,17 +32,20 @@ require('packer').startup(function()
 			ts_update()
 		end,
 	}
-	use 'vimwiki/vimwiki'
+	use 'rafi/awesome-vim-colorschemes'
 	use 'sbdchd/neoformat'
-	use 'Glench/Vim-Jinja2-Syntax'
-	use "savq/melange-nvim"
-	use "diepm/vim-rest-console"
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+	}
 end)
 
+-- Set leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.opt.encoding='utf-8'
 
+-- Misc settings
+vim.opt.encoding='utf-8'
 vim.opt.number = true
 vim.opt.autoindent = true
 vim.opt.clipboard = 'unnamedplus'
@@ -57,59 +59,18 @@ local cmd = vim.cmd
 -- Colorscheme
 vim.opt.termguicolors = true
 
-function is_light_theme()
-	return string.sub(vim.fn.system({'tmux', 'show-environment', 'THEME'}), 1, 11) == "THEME=light"
-end
+cmd 'colorscheme twilight256'
 
-function set_background()
-	if is_light_theme() then
-		vim.opt.background = 'light'
-	else
-		vim.opt.background = 'dark'
-	end
-	cmd.colorscheme 'melange'
-end
+-- Status line
+require('lualine').setup()
 
-function toggle_light_dark()
-	os.execute('tmux source-file ' .. (is_light_theme() and '~/.tmux_dark.conf' or '~/.tmux_light.conf'))
-	os.execute('tmux set-environment THEME ' .. (is_light_theme() and 'dark' or 'light'))
-	set_background()
-end
-
-set_background()
-
--- Refresh the color when SIGUSR1 is sent
-vim.api.nvim_create_autocmd({"Signal"}, {
-	callback = set_background
-})
+-- Auto-install
+require("mason").setup()
+require("mason-lspconfig").setup()
 
 -- Enable colorcolumn for text docs
 vim.cmd("autocmd FileType markdown set colorcolumn=80")
 vim.cmd("autocmd FileType asciidoc set colorcolumn=80")
-
--- Http client
-vim.g.vrc_curl_opts = {
-	["-k"] = "",
-	["-i"] = "",
-	["-s"] = "",
-}
-
-vim.g.vrc_show_command = true
-
-vim.g.vrc_auto_format_response_patterns = {
-      json = 'jq',
-      xml = 'tidy -xml -i -',
-}
-
--- Vimwiki path
-vim.cmd("let g:vimwiki_list = [{'path': '~/life/', 'path_html': '~/public_html/'}]")
-
--- Don't treat every md file as a wiki
-vim.cmd("let g:vimwiki_global_ext = 0")
-
-
--- Statusline
-require('lualine').setup()
 
 -- Lsp Init
 local lsp = require'lspconfig'
@@ -225,13 +186,14 @@ require('telescope').setup({
 })
 
 -- Tree sitter config
--- Right now just used for python
+local tree_sitter_langs = { "python", "go", "lua", "tsx", "typescript", "bash", "http", "json" }
+
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = { "python", "go", "lua", "tsx", "typescript", "bash", "http", "json" },
+	ensure_installed = tree_sitter_langs,
 	sync_install = false,
 	auto_install = true,
 	highlight = {
-		enable = { "python", "go", "lua", "tsx", "typescript", "bash" }
+		enable = tree_sitter_langs
 	},
 	indent = {
 		enable = true
@@ -262,8 +224,18 @@ vim.api.nvim_exec([[ let g:go_highlight_function_calls = 1 ]], false)
 vim.api.nvim_exec([[ let g:go_highlight_extra_types = 1 ]], false)
 vim.api.nvim_exec([[ let g:go_highlight_operators = 1 ]], false)
 
--- tsserver
-lsp.tsserver.setup{
+require("mason-lspconfig").setup {
+    ensure_installed = { "lua_ls", "rust_analyzer", "ts_ls", "gopls", "pyright" },
+}
+
+local default_setup = {
+	on_attach = on_attach,
+	capabilities = capabilities,
+	handlers = handlers
+}
+
+-- ts_ls
+lsp.ts_ls.setup{
 	capabilities = capabilities,
 	on_attach = function(client, buffer)
 		client.server_capabilities.documentFormattingProvider = false
@@ -274,38 +246,18 @@ lsp.tsserver.setup{
 }
 -- Gopls
 lsp.gopls.setup{
-	on_attach = on_attach,
-	capabilities = capabilities,
-	handlers = handlers
+	default_setup
 }
 -- Python
 lsp.pyright.setup{
-	capabilities = capabilities,
-	on_attach = on_attach,
-	handlers = handlers
+	default_setup
 }
 -- Rust
 lsp.rust_analyzer.setup{
-	capabilities = capabilities,
-	on_attach = on_attach,
-	handlers = handlers
-}
-
--- Ruby
-lsp.solargraph.setup{
-	capabilities = capabilities,
-	on_attach = on_attach,
-	handlers = handlers
-}
-
--- Elixir
-lsp.elixirls.setup{
-	cmd = { vim.fn.expand("~/bin/elixir-ls/language_server.sh") }
+	default_setup
 }
 
 -- Global Binds
--- Color scheme
-vim.keymap.set('n', '<leader>o', toggle_light_dark, { noremap = true })
 -- Telescope
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope git_files<cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>fs', ':Telescope live_grep<cr>', { noremap = true })
