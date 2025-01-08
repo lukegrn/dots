@@ -1,14 +1,14 @@
 -- Sets up completion to be used by ../init.lua
 
-local cmp = require'cmp'
+local cmp = require("cmp")
 
 -- Autocomplete commands
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
 	sources = cmp.config.sources({
-		{ name = 'path' }
+		{ name = "path" },
 	}, {
-		{ name = 'cmdline' }
-	})
+		{ name = "cmdline" },
+	}),
 })
 
 -- Utility function required by setup
@@ -20,28 +20,28 @@ end
 -- Set up buffer completion
 cmp.setup({
 	mapping = {
-		['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-		['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-		['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-		  if cmp.visible() then
-			cmp.select_next_item()
-		  elseif has_words_before() then
-			cmp.complete()
-		  else
-			fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
-		  end
-		end, { "i", "s" }),		
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+			end
+		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function()
-		  if cmp.visible() then
-			cmp.select_prev_item()
-		  end
+			if cmp.visible() then
+				cmp.select_prev_item()
+			end
 		end, { "i", "s" }),
 	},
 	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
+		{ name = "nvim_lsp" },
 	}, {
-		{ name = 'buffer' }
-	})
+		{ name = "buffer" },
+	}),
 })
