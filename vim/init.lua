@@ -40,6 +40,15 @@ require('packer').startup(function()
 
 	-- Color theme that has colorblind support
 	use 'EdenEast/nightfox.nvim'
+
+	-- Fuzzy Finding
+	use {
+		'nvim-telescope/telescope.nvim', tag = '0.1.8',
+		requires = { {'nvim-lua/plenary.nvim'} }
+	}
+
+	-- Auto formatter
+	use 'stevearc/conform.nvim'
 end)
 
 -- Set leader key
@@ -94,3 +103,6 @@ require('completion')
 
 -- Set up syntax
 require('syntax')
+
+-- Set up auto formatting
+require('formatting')
