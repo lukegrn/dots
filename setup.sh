@@ -17,4 +17,7 @@ ln -s "$(pwd)/tmux_light.conf" ~/.tmux_light.conf
 
 [ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
 [ -f ~/.config/nvim/init.lua ] && mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua.bak
-ln -s "$(pwd)/init.lua" ~/.config/nvim/init.lua
+[ -d ~/.config/nvim/lua ] && mv ~/.config/nvim/lua ~/.config/nvim/lua.bak
+ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
+ln -s "$(pwd)/vim/lua" ~/.config/nvim
+
