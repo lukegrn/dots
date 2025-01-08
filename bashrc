@@ -76,4 +76,3 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 
 [ -f ~/.custom.sh ] && source ~/.custom.sh
 ## Don't put anything below here
-. "$HOME/.cargo/env"
