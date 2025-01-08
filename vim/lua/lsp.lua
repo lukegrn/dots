@@ -2,23 +2,6 @@
 
 local lsp = require("lspconfig")
 
--- Nice borders
--- local border = {
---       {"🭽", "FloatBorder"},
---       {"▔", "FloatBorder"},
---       {"🭾", "FloatBorder"},
---       {"▕", "FloatBorder"},
---       {"🭿", "FloatBorder"},
---       {"▁", "FloatBorder"},
---       {"🭼", "FloatBorder"},
---       {"▏", "FloatBorder"},
--- }
-
--- local handlers =  {
---   ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
---   ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
--- }
-
 -- LSP completion
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
