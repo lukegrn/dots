@@ -11,3 +11,9 @@ Okay, if you still want to use them just clone this repo and `./setup.sh` -
 theoretically that should back up any config this would normally overwrite and
 install this instead.
 
+## Customization
+
+Don't be silly and commit sensitive keys to your bashrc - this looks for a
+~/.custom.sh file to be optionally provided per-maching. You can put any env
+vars you may need there so that you don't put anything you shouldn't in a public
+git repo.
