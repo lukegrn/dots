@@ -74,7 +74,6 @@ vim.opt.hlsearch = false
 vim.opt.wrap = false
 
 -- Set colorscheme
-vim.opt.termguicolors = true
 require("nightfox").setup({
   options = {
     colorblind = {

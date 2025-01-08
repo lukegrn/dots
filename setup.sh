@@ -9,9 +9,9 @@ ln -s "$(pwd)/bash_profile" ~/.bash_profile
 [ -f ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak
 ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
 
-[ -d ~/.config/nvim ] || mkdir -p ~/.config/nvim
-[ -f ~/.config/nvim/init.lua ] && mv ~/.config/nvim/init.lua ~/.config/nvim/init.lua.bak
-[ -d ~/.config/nvim/lua ] && mv ~/.config/nvim/lua ~/.config/nvim/lua.bak
+[ -d ~/.config/nvim.bak ] && rm -rf ~/.config/nvim.bak
+[ -d ~/.config/nvim ] && mv -f ~/.config/nvim ~/.config/nvim.bak
+mkdir -p ~/.config/nvim
 ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
 ln -s "$(pwd)/vim/lua" ~/.config/nvim
 
