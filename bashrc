@@ -63,14 +63,7 @@ export EDITOR=nvim
 
 if command -v tmux>/dev/null; then
     [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux new-session -A -s main
-
-    # check if we have been switched to light, else go dark
-    [[ ! $(tmux show-environment | grep THEME) =~ 'THEME=light' ]] && 
-    tmux set-environment THEME dark
 fi
-
-alias ol="tmux source-file ~/.tmux_light.conf; tmux set-environment THEME 'light' && killall -s SIGUSR1 nvim"
-alias od="tmux source-file ~/.tmux_dark.conf; tmux set-environment THEME 'dark' && killall -s SIGUSR1 nvim"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
