@@ -84,6 +84,9 @@ require("nightfox").setup({
 				deutan = 0.3,
 			},
 		},
+		inverse = {
+			match_paren = true
+		}
 	},
 })
 vim.cmd("colorscheme dayfox")
