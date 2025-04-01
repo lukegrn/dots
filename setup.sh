@@ -18,5 +18,4 @@ ln -s "$(pwd)/vim/lua" ~/.config/nvim
 [ -d ~/.config/zk.bak ] && rm -rf ~/.config/zk.bak
 [ -d ~/.config/zk ] && mv -f ~/.config/zk ~/.config/zk.bak
 mkdir -p ~/.config/zk
-ln -s "$(pwd)/zk/zkconf.toml" ~/.config/zk/config.toml
-ln -s "$(pwd)/zk/templates" ~/.config/zk
+ln -s "$(pwd)/zkconf.toml" ~/.config/zk/config.toml
