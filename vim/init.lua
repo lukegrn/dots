@@ -50,9 +50,6 @@ require("packer").startup(function()
 
 	-- Auto formatter
 	use("stevearc/conform.nvim")
-
-	-- ZK Integration
-	use("zk-org/zk-nvim")
 end)
 
 -- Set leader key
@@ -88,8 +85,8 @@ require("nightfox").setup({
 			},
 		},
 		inverse = {
-			match_paren = true,
-		},
+			match_paren = true
+		}
 	},
 })
 vim.cmd("colorscheme dayfox")
@@ -112,6 +109,3 @@ require("syntax")
 
 -- Set up auto formatting
 require("formatting")
-
--- Set up notebook
-require("notebook").setup()

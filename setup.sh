@@ -15,7 +15,3 @@ mkdir -p ~/.config/nvim
 ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
 ln -s "$(pwd)/vim/lua" ~/.config/nvim
 
-[ -d ~/.config/zk.bak ] && rm -rf ~/.config/zk.bak
-[ -d ~/.config/zk ] && mv -f ~/.config/zk ~/.config/zk.bak
-mkdir -p ~/.config/zk
-ln -s "$(pwd)/zkconf.toml" ~/.config/zk/config.toml
