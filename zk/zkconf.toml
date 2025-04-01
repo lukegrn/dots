@@ -2,9 +2,6 @@
 #
 # Uncomment the properties you want to customize.
 
-[notebook]
-dir = "~/notes"
-
 # NOTE SETTINGS
 #
 # Defines the default options used when generating new notes.
@@ -117,7 +114,7 @@ multiword-tags = false
 
 # bat is a great tool to render Markdown document with syntax highlighting.
 #https://github.com/sharkdp/bat
-# fzf-preview = "bat -p --color always {-1}"
+fzf-preview = "bat -p --color always {-1}"
 
 
 # LSP
@@ -180,4 +177,4 @@ recent = "zk edit --sort created- --created-after 'last two weeks' --interactive
 conf = '$EDITOR "$ZK_NOTEBOOK_DIR/.zk/config.toml"'
 
 # Search by tag
-findbytag = 'zk edit --interactive --tag "$*"'
+tag = "zk edit --interactive --tag $@"
