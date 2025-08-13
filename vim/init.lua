@@ -50,6 +50,8 @@ require("packer").startup(function()
 
 	-- Auto formatter
 	use("stevearc/conform.nvim")
+
+	use("wincent/base16-nvim")
 end)
 
 -- Set leader key
@@ -75,21 +77,7 @@ vim.opt.hlsearch = false
 vim.opt.wrap = false
 
 -- Set colorscheme
-require("nightfox").setup({
-	options = {
-		colorblind = {
-			enable = true,
-			severity = {
-				protan = 1.0,
-				deutan = 0.3,
-			},
-		},
-		inverse = {
-			match_paren = true
-		}
-	},
-})
-vim.cmd("colorscheme dayfox")
+vim.cmd("colorscheme gruvbox-dark-hard")
 
 -- Enable colorcolumn for markdown docs
 vim.cmd("autocmd FileType markdown set colorcolumn=80")

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-[ -f ~/.bashrc ] && mv ~/.bashrc ~/.bashrc.bak
-ln -s "$(pwd)/bashrc" ~/.bashrc
+[ -f ~/.zshrc ] && mv ~/.zshrc ~/.zshrc.bak
+ln -s "$(pwd)/zshrc" ~/.zshrc
 
-[ -f ~/.bash_profile ] && mv ~/.bash_profile ~/.bash_profile.bak
-ln -s "$(pwd)/bash_profile" ~/.bash_profile
+[ -f ~/.zshenv ] && mv ~/.zshenv ~/.zshenv.bak
+ln -s "$(pwd)/zshenv" ~/.zshenv
 
 [ -f ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak
 ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
@@ -14,4 +14,3 @@ ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
 mkdir -p ~/.config/nvim
 ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
 ln -s "$(pwd)/vim/lua" ~/.config/nvim
-
