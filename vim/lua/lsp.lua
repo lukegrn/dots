@@ -12,6 +12,7 @@ local on_attach = function(client, bufnr)
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
 	vim.keymap.set("n", "<leader>i", vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", bufopts)
+	vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action , bufopts)
 end
 
 -- LSP defaults, can be overridden or added upon per-lang
