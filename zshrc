@@ -24,6 +24,9 @@ zstyle ':vcs_info:*' check-for-changes true
 setopt PROMPT_SUBST
 PROMPT='[$?] %n:%~${vcs_info_msg_0_}$ '
 
+# Misc env vars
+export EDITOR=nvim
+
 # Helpful functions
 jqless() {
 	local jqfile=${1:--}
