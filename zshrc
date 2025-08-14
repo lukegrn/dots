@@ -17,9 +17,20 @@ bindkey -e
 
 zstyle ':vcs_info:git:*' unstagedstr '%F{red}*%f'
 zstyle ':vcs_info:git:*' stagedstr '%F{yellow}+%f'
-zstyle ':vcs_info:git:*' formats ' (%F{yellow}%b%f)%u%c%m'
-zstyle ':vcs_info:git:*' actionformats ' (%F{yellow}%b[%a]%f%u%c)'
+zstyle ':vcs_info:git:*' formats ' (%F{yellow}%b%f)%m%u%c'
+zstyle ':vcs_info:git:*' actionformats ' (%F{yellow}%b[%a]%f%m%u%c)'
 zstyle ':vcs_info:*' check-for-changes true
+
+# add untracked files to unstagedstr
+# based on: https://github.com/zsh-users/zsh/blob/f9e9dce5443f323b340303596406f9d3ce11d23a/Misc/vcs_info-examples#L155-L170
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+
++vi-git-untracked(){
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+        git status --porcelain | grep '??' &> /dev/null ; then
+        hook_com[misc]+='%F{magenta}^%f'
+    fi
+}
 
 setopt PROMPT_SUBST
 PROMPT='[$?] %n:%~${vcs_info_msg_0_}$ '
