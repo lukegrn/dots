@@ -38,9 +38,6 @@ require("packer").startup(function()
 		end,
 	})
 
-	-- Color theme that has colorblind support
-	use("EdenEast/nightfox.nvim")
-
 	-- Fuzzy Finding
 	use({
 		"nvim-telescope/telescope.nvim",

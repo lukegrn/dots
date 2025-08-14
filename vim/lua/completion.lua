@@ -45,3 +45,8 @@ cmp.setup({
 		{ name = "buffer" },
 	}),
 })
+
+-- Do not autocomplete in git commit buffers
+cmp.setup.filetype("gitcommit", {
+	enabled = false,
+})
