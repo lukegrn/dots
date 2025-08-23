@@ -9,6 +9,9 @@ ln -s "$(pwd)/zshenv" ~/.zshenv
 [ -f ~/.tmux.conf ] && mv ~/.tmux.conf ~/.tmux.conf.bak
 ln -s "$(pwd)/tmux.conf" ~/.tmux.conf
 
+[ -f ~/.wezterm.lua ] && mv ~/.wezterm.lua ~/.wezterm.lua.bak
+ln -s "$(pwd)/wezterm.lua" ~/.wezterm.lua
+
 [ -d ~/.config/nvim.bak ] && rm -rf ~/.config/nvim.bak
 [ -d ~/.config/nvim ] && mv -f ~/.config/nvim ~/.config/nvim.bak
 mkdir -p ~/.config/nvim
