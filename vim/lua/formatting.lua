@@ -8,6 +8,7 @@ require("conform").setup({
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
+		json = { "prettier" },
 		markdown = { "prettier" },
 		sh = { "shfmt" },
 	},

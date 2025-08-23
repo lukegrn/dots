@@ -8,8 +8,10 @@
 require("packer").startup(function()
 	use("wbthomason/packer.nvim")
 
-	-- LSP, and completion
+	-- LSP
 	use("neovim/nvim-lspconfig")
+
+	-- Completion
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
