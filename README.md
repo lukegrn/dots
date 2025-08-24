@@ -34,8 +34,8 @@ This sets up the following programs:
     inside neovim the first time.
 - wezterm terminal emulator (configured in Lua which allows me to dynamically
   rebind keys based on OS, see [On keybindings](#on-keybindings) for details).
-  It's fine, but Lua for config is great, font ligatures are nice, and built in
-  themes are a bonus.
+  It's a fine terminal emulator, but Lua for config is great, font ligatures are
+  nice, and built in themes are a bonus.
 - Lots of programming language specific stuff in `zshenv` - just delete lines if
   you don't need support for that lang/don't have it installed.
 
