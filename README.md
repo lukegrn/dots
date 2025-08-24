@@ -18,7 +18,7 @@ machine as work, and my personal Mac. The key to a consistent experience is
 mapping some third key (I use caps lock) to command on Mac, and control on
 Linux. This way I can always use caps lock when I expect to press control (or
 command, but I came from Windows/Linux before Mac so control is my muscle
-memory). Then, in my terminal config I rebind Command _back_ to control since
+memory). Then, in my terminal config I rebind command _back_ to control since
 those keybinds are the same across systems. Just always use caps lock and don't
 worry about the nitty gritty.
 
