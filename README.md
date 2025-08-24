@@ -22,6 +22,21 @@ memory). Then, in my terminal config I rebind command _back_ to control since
 those keybinds are the same across systems. Just always use caps lock and don't
 worry about the nitty gritty.
 
+## On programs
+
+This sets up the following programs:
+
+- zsh (default shell on mac, `chsh -s $(which zsh)` on Linux)
+- tmux (install, will be autostarted on shell open)
+- neovim
+  - need to install packer for neovim package management
+    [here](https://github.com/wbthomason/packer.nvim)) and run `:PackerInstall`
+    inside neovim the first time.
+- wezterm terminal emulator (configured in Lua which allows me to dynamically
+  rebind keys based on OS, see [On keybindings](#on-keybindings) for details).
+  It's fine, but Lua for config is great, font ligatures are nice, and built in
+  themes are a bonus.
+
 ## Customization
 
 Don't be silly and commit sensitive keys to your shellrc - this looks for a
