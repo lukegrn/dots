@@ -36,6 +36,8 @@ This sets up the following programs:
   rebind keys based on OS, see [On keybindings](#on-keybindings) for details).
   It's fine, but Lua for config is great, font ligatures are nice, and built in
   themes are a bonus.
+- Lots of programming language specific stuff in `zshenv` - just delete lines if
+  you don't need support for that lang/don't have it installed.
 
 ## Customization
 
