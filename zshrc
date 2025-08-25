@@ -68,18 +68,5 @@ alias ls="ls --color"
 alias ll="ls -al"
 alias cd="cd_with_venv_check"
 
-# Auto start tmux everywhere except vscode
-tmux_auto() {
-	# Don't launch tmux in vscode terminals
-	parent=$(ps -p $PPID -o comm=)
-	if [[ "$parent" != "code" ]]; then
-		if command -v tmux >/dev/null; then
-			[[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux new-session -A -s main
-		fi
-	fi
-}
-
-tmux_auto
-
 # Machine specific conf in ~/.custom.sh
 [ -f ~/.custom.sh ] && source ~/.custom.sh
