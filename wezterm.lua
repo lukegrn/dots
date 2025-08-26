@@ -34,7 +34,7 @@ config.leader = { key = [[\]], mods = getModBasedOnOS(isMac), timeout_millisecon
 
 config.keys = {
 	-- Create tab
-	{ key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "c", mods = "LEADER", action = act.SpawnCommandInNewTab({ cwd = "~" }) },
 
 	-- Vertical split
 	{ key = "-", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
