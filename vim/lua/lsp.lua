@@ -51,3 +51,10 @@ lsp.rust_analyzer.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+-- OCaml
+-- -- If not installed, do so with opam install ocaml-lsp-server
+lsp.ocamllsp.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})

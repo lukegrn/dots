@@ -11,6 +11,8 @@ require("conform").setup({
 		json = { "prettier" },
 		markdown = { "prettier" },
 		sh = { "shfmt" },
+		go = { "gofmt" },
+		ocaml = { "ocamlformat" },
 	},
 	format_on_save = {
 		timeout_ms = 500,

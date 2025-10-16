@@ -19,7 +19,7 @@ config.font_size = isMac and 16 or 12
 config.font = wezterm.font("JetBrains Mono", { weight = "Bold" })
 
 -- Color scheme
-config.color_scheme = "Gruvbox dark, hard (base16)"
+config.color_scheme = "AtomOneLight"
 
 -- Tab bar settings
 config.enable_tab_bar = true

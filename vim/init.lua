@@ -50,7 +50,7 @@ require("packer").startup(function()
 	-- Auto formatter
 	use("stevearc/conform.nvim")
 
-	use("wincent/base16-nvim")
+	use("navarasu/onedark.nvim")
 end)
 
 -- Set leader key
@@ -76,7 +76,10 @@ vim.opt.hlsearch = false
 vim.opt.wrap = false
 
 -- Set colorscheme
-vim.cmd("colorscheme gruvbox-dark-hard")
+require("onedark").setup({
+	style = "light",
+})
+require("onedark").load()
 
 -- Enable colorcolumn for markdown docs
 vim.cmd("autocmd FileType markdown set colorcolumn=80")

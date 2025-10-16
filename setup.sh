@@ -17,3 +17,6 @@ ln -s "$(pwd)/wezterm.lua" ~/.wezterm.lua
 mkdir -p ~/.config/nvim
 ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
 ln -s "$(pwd)/vim/lua" ~/.config/nvim
+
+[ -d ~/.local/bin ] || mkdir -p ~/.local/bin
+ln -sf $(pwd)/bin/* ~/.local/bin/

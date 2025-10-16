@@ -1,0 +1,64 @@
+#!/bin/zsh
+
+# ----------------------------------------------------------------------
+# Luke's important file backup script
+# ----------------------------------------------------------------------
+# Backup one drive exactly to another and maintain a history of the last
+# three backups
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# Error codes
+# ----------------------------------------------------------------------
+IN_OR_OUT_NOT_SET_CODE=1
+LOGFILE_NOT_SET_CODE=2
+
+# ----------------------------------------------------------------------
+# Variables
+# ----------------------------------------------------------------------
+IN=${B_IN:-""}
+OUT=${B_OUT:-""}
+LOGFILE=${B_LOGFILE:-""}
+
+if [[ -z "${IN}" || -z "${OUT}" ]]; then
+	echo "B_IN and B_OUT variables must be set"
+	exit $IN_OR_OUT_NOT_SET_CODE
+fi
+
+if [[ -z "${LOGFILE}" ]]; then
+	echo "B_LOGFILE must be set"
+	exit $LOGFILE_NOT_SET_CODE
+fi
+
+# ----------------------------------------------------------------------
+# Remove the oldest backup, if it exists
+# ----------------------------------------------------------------------
+
+if [ -d "$OUT/backup.3" ]; then
+	rm -rf "$OUT/backup.3"
+fi
+
+# ----------------------------------------------------------------------
+# Rearrange existing backups, if they exist
+# ----------------------------------------------------------------------
+
+# if [ -d "$OUT/backup.2" ]; then
+# 	mv "$OUT/backup.2" "$OUT/backup.3"
+# fi
+
+# if [ -d "$OUT/backup.1" ]; then
+# 	mv "$OUT/backup.1" "$OUT/backup.2"
+# fi
+
+# if [ -d "$OUT/backup.0" ]; then
+# 	mv "$OUT/backup.0" "$OUT/backup.1"
+# fi
+
+# ----------------------------------------------------------------------
+# Make new backup, only linking to the previous backup if it exists
+# ----------------------------------------------------------------------
+# if [ -d "$OUT/backup.1" ]; then
+# 	rsync -a --delete --link-dest=$OUT/backup.1 --log-file=$LOGFILE $IN $OUT/backup.0
+# else
+	rsync -a --delete --log-file=$LOGFILE $IN $OUT/backup.0
+# fi
