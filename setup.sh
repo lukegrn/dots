@@ -20,3 +20,8 @@ ln -s "$(pwd)/vim/lua" ~/.config/nvim
 
 [ -d ~/.local/bin ] || mkdir -p ~/.local/bin
 ln -sf $(pwd)/bin/* ~/.local/bin/
+
+[ -d ~/.emacs.d.bak ] && rm -rf ~/.emacs.d.bak
+[ -d ~/.emacs.d ] && mv -f ~/.emacs.d ~/.emacs.d.bak
+mkdir -p ~/.emacs.d
+ln -s "$(pwd)/init.el" ~/.emacs.d/init.el
