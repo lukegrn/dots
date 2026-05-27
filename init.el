@@ -145,6 +145,11 @@
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-ts-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx\\'" . tsx-ts-mode)))
 
+(use-package markdown-mode
+  :ensure t
+  :mode
+  ("\\.md\\'" . markdown-mode))
+
 ;; Command completion
 (use-package vertico
   :ensure t
@@ -185,7 +190,19 @@
 ;; Auto format all the things
 (use-package format-all
   :ensure t
-  :hook (prog-mode . format-all-mode))
+  :hook
+  (prog-mode . format-all-mode)
+  (markdown-mode . format-all-mode)
+  :config
+  (setq-default format-all-formatters
+		'(("Markdown" prettier)
+		  ("Javascript" prettier)
+		  ("JSX" prettier)
+		  ("Typescript" prettier)
+		  ("TSX" prettier)
+		  ("Shell" shfmt)
+		  ("Go" gofmt)
+		  ("Python" black))))
 
 ;; Show git diffs in the gutter
 (use-package git-gutter

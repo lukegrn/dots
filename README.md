@@ -1,8 +1,11 @@
 # Luke Green's dotfiles
 
 These are some pretty simple dotfile configs that get my development setup 90%
-of the way there. I live in Neovim, Tmux, and ~~Bash~~ Zsh for all of my work,
-which allows me to spin up my setup with just a few files.
+of the way there. I live in Neovim, ~~Tmux~~ Wezterm, and ~~Bash~~ Zsh for all
+of my work, which allows me to spin up my setup with just a few files. Though
+recently I've been expirimenting with Emacs, which may change all of this. I'll
+leave the Neovim confs around regardless of what happens in case they are
+helpful.
 
 If you find these useful to you, that's great, but don't count on them not to
 change. In fact, count on them to change often and without warning.
@@ -22,6 +25,8 @@ memory). Then, in my terminal config I rebind command _back_ to control since
 those keybinds are the same across systems. Just always use caps lock and don't
 worry about the nitty gritty.
 
+Also in Emacs, control is caps lock. Always use caps lock.
+
 ## On programs
 
 This sets up the following programs:
@@ -39,6 +44,7 @@ This sets up the following programs:
   nice, and built in themes are a bonus.
 - Lots of programming language specific stuff in `zshenv` - just delete lines if
   you don't need support for that lang/don't have it installed.
+- Emacs with support for the stuff I do (may go away, I'm experimenting)
 
 ## Customization
 
