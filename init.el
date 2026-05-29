@@ -9,7 +9,18 @@
 (defvar lukegrn/default-size 120)
 (defvar lukegrn/scale-on-mac t)
 (defvar lukegrn/default-font-weight 'normal)
+
+;; Flip a switch for work-specific config
+(defvar lukegrn/work/enabled nil)
+
+;; These variables must be set for work-specific config
+(defvar lukegrn/work/jira-url "")
+(defvar lgreen/work/jira-component-project-map '()) ;Ex '(("proj" . "~/proj/dif") ("other" . "~/other/dir"))
 ;;;; End variable definitions
+
+;;;; Override variables in machine-specific file that is not committed to git
+(require 'customize-machine nil 'noerror)
+;;;; End override
 
 ;; UI tweaks
 (menu-bar-mode -1)
@@ -21,6 +32,9 @@
 (setq inhibit-startup-screen t)
 (setq ring-bell-function 'ignore)
 
+;; Always add newline at the end of file
+(setq require-final-newline t)
+
 ;; Use ibuffer instead of list-buffers
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -29,6 +43,9 @@
 
 ;; Line nums in programming modes
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
+;; Follow symlinks
+(setq vc-follow-symlinks t)
 
 ;; On mac use command as control
 (setq mac-command-modifier 'control)
@@ -124,8 +141,7 @@
 
 ;; Remap modes
 (setq major-mode-remap-alist
- '((yaml-mode . yaml-ts-mode)
-   (bash-mode . bash-ts-mode)
+ '((bash-mode . bash-ts-mode)
    (typescript-mode . typescript-ts-mode)
    (json-mode . json-ts-mode)
    (css-mode . css-ts-mode)
@@ -149,6 +165,11 @@
   :ensure t
   :mode
   ("\\.md\\'" . markdown-mode))
+
+(use-package yaml-ts-mode
+  :mode
+  ("\\.yaml\\'" . yaml-ts-mode)
+  ("\\.yml\\'" . yaml-ts-mode))
 
 ;; Command completion
 (use-package vertico
@@ -208,3 +229,54 @@
 (use-package git-gutter
   :ensure t
   :hook (prog-mode . git-gutter-mode))
+
+;; Autocomplete
+(use-package corfu
+  :ensure t
+  :hook (prog-mode . corfu-mode)
+  :config
+  (setq corfu-auto t
+	corfu-auto-delay 0.1
+	corfu-auto-trigger "."
+	corfu-quit-no-match 'separator
+	corfu-on-exact-match 'insert))
+
+;;;; Work specific config
+(if lukegrn/work/enabled (progn
+    (use-package org-jira
+      :ensure t
+      :config
+      (if (not (file-directory-p "~/.org-jira"))
+	  (make-directory "~/.org-jira"))
+      (setq jiralib-url lukegrn/work/jira-url))
+
+  ;; Function to create a branch for the current ticket
+  ;; Only works on an org-jira issue
+  (defun lukegrn/work/magit-from-ticket ()
+    "Open magit in the relevant project, ready for branching. 
+
+Uses component-project mappings set by variable
+lukegrn/work/jira-component-project-map. If only one component is set,
+automatically use that project. If multiple components are set, prompt for user
+selection of which project to use. If no matching project is found, prompt user.
+Copies the issue into the kill-ring for easy branching"
+    (interactive)
+    (let* ((issue
+	    (org-jira-get-from-org 'issue 'key))
+	   (components
+	    (split-string (org-jira-get-from-org 'issue 'components) ", "))
+	   (project-dirs
+	    (remq nil (mapcar
+	     (lambda (pair)
+	       (if (member (car pair) components)
+		   (cdr pair)))
+	     lukegrn/work/jira-component-project-map)))
+	   (selected-dir (if (= (length project-dirs) 1)
+			     (car project-dirs)
+			   (completing-read
+			    "Pick component project directory: "
+			    project-dirs))))
+      (kill-new issue)
+      (magit-status selected-dir)
+      (call-interactively #'magit-branch-and-checkout)))))
+;;;; Work specific config ends
