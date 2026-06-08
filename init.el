@@ -34,6 +34,8 @@
 (put 'dired-find-alternate-file 'disabled nil)
 (setq inhibit-startup-screen t)
 (setq ring-bell-function 'ignore)
+(set-fringe-mode 16)
+(setq display-line-numbers-width-start t)
 
 ;; Always add newline at the end of file
 (setq require-final-newline t)
@@ -66,6 +68,10 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; Always show my line and column information in the mode line
+(setq column-number-mode t)
+
+;; Font settings
 (when (and lukegrn/scale-on-mac lukegrn/is-mac)
   (setq lukegrn/default-size (+ lukegrn/default-size 40)))
 
@@ -242,8 +248,13 @@
 
 ;; Show git diffs in the gutter
 (use-package git-gutter
+  :ensure t)
+
+(use-package git-gutter-fringe
   :ensure t
-  :config (global-git-gutter-mode +1))
+  :config
+  (global-git-gutter-mode +1)
+  (setq git-gutter:update-interval 0.2))
 
 ;; Autocomplete
 (use-package corfu
