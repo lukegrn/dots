@@ -10,6 +10,9 @@
 (defvar lukegrn/scale-on-mac t)
 (defvar lukegrn/default-font-weight 'normal)
 
+;; Useful check for if the system is a mac or not
+(defvar lukegrn/is-mac (equal system-type 'darwin))
+
 ;; Flip a switch for work-specific config
 (defvar lukegrn/work/enabled nil)
 
@@ -62,18 +65,11 @@
 ;; Paren settings
 (show-paren-mode 1)
 (setq show-paren-delay 0)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(show-paren-match ((t (:underline 'foreground-color)))))
 
-
-(when (and lukegrn/scale-on-mac (equal system-type 'darwin))
+(when (and lukegrn/scale-on-mac lukegrn/is-mac)
   (setq lukegrn/default-size (+ lukegrn/default-size 40)))
 
-(when (not (equal system-type 'darwin))
+(when (not lukegrn/is-mac)
   (setq lukegrn/default-font-weight 'semibold))
 
 (set-face-attribute 'default nil
@@ -95,11 +91,11 @@
       create-lockfiles nil)
 
 ;; Evil makes emacs a better vim
-(use-package evil
-  :ensure t
-  :preface (setq evil-want-keybinding nil)
-  :init (setq evil-undo-system 'undo-redo)
-  :config (evil-mode 1))
+;; (use-package evil
+;;   :ensure t
+;;   :preface (setq evil-want-keybinding nil)
+;;   :init (setq evil-undo-system 'undo-redo)
+;;   :config (evil-mode 1))
 
 ;; Use shell path
 (use-package exec-path-from-shell
@@ -130,6 +126,7 @@
 	(json "https://github.com/tree-sitter/tree-sitter-json" "v0.24.8" "src")
 	(make "https://github.com/alemuller/tree-sitter-make")
 	(python "https://github.com/tree-sitter/tree-sitter-python" "v0.25.0" "src")
+	(rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.24.2" "src")
 	(tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src")
 	(typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src")
 	(yaml "https://github.com/ikatyang/tree-sitter-yaml")))
@@ -171,6 +168,10 @@
   ("\\.yaml\\'" . yaml-ts-mode)
   ("\\.yml\\'" . yaml-ts-mode))
 
+(use-package rust-ts-mode
+  :mode
+  ("\\.rs\\'" . rust-ts-mode))
+
 ;; Command completion
 (use-package vertico
   :ensure t
@@ -185,12 +186,12 @@
   :ensure t)
 
 ;; Evil in other things (like Magit)
-(use-package evil-collection
-  :ensure t
-  :preface
-  (setq evil-want-keybinding nil)
-  (setq evil-want-minibuffer t)
-  :config (evil-collection-init))
+;; (use-package evil-collection
+;;   :ensure t
+;;   :preface
+;;   (setq evil-want-keybinding nil)
+;;   (setq evil-want-minibuffer t)
+;;   :config (evil-collection-init))
 
 ;; Comment lines that are highlighted
 (use-package evil-nerd-commenter
@@ -200,13 +201,26 @@
 ;; Set timers in emacs
 (use-package tmr
   :ensure t
-  :config (define-key global-map (kbd "C-c t") #'tmr-prefix-map))
+  :config
+  (define-key global-map (kbd "C-c t") #'tmr-prefix-map)
+  ;; Stolen from tmr docs, wrapped in a mac check
+  (if lukegrn/is-mac
+      (progn
+	(defun my-macos-notify (timer)
+	  (let* ((description (or (tmr--timer-description timer) ""))
+		 (sanitized-body (substring-no-properties description))
+		 (script (format "display notification %S with title %S sound name %S"
+				 (if (not (= (length sanitized-body) 0)) sanitized-body "Timer up")
+    	  			 (format-time-string "Emacs TMR: %R" (tmr--timer-end-date timer))
+    	  			 "Hero")))
+	    (call-process "osascript" nil 0 nil "-e" script)))
+	
+	(remove-hook 'tmr-timer-finished-functions #'tmr-notification-notify)
+	(add-hook 'tmr-timer-finished-functions #'my-macos-notify))))
 
 ;; Maybe this shell actually works?
 (use-package eat
-  :ensure t
-  :hook (eshell-load-hook . eat-eshell-mode)
-  :config (setq eat-enable-auto-line-mode 1))
+  :ensure t)
 
 ;; Auto format all the things
 (use-package format-all
@@ -223,12 +237,13 @@
 		  ("TSX" prettier)
 		  ("Shell" shfmt)
 		  ("Go" gofmt)
-		  ("Python" black))))
+		  ("Python" black)
+		  ("Rust" rustfmt))))
 
 ;; Show git diffs in the gutter
 (use-package git-gutter
   :ensure t
-  :hook (prog-mode . git-gutter-mode))
+  :config (global-git-gutter-mode +1))
 
 ;; Autocomplete
 (use-package corfu
@@ -240,6 +255,14 @@
 	corfu-auto-trigger "."
 	corfu-quit-no-match 'separator
 	corfu-on-exact-match 'insert))
+
+;; Multiple cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind
+  ("C-." . mc/mark-next-like-this)
+  ("C-," . mc/mark-previous-like-this)
+  ("C-c C-." . mc/mark-all-like-this))
 
 ;;;; Work specific config
 (if lukegrn/work/enabled (progn
