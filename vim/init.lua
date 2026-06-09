@@ -50,7 +50,11 @@ require("packer").startup(function()
 	-- Auto formatter
 	use("stevearc/conform.nvim")
 
-	use("navarasu/onedark.nvim")
+	-- Theme
+	use("gruvbox-community/gruvbox")
+
+	-- Database interaction
+	use("xemptuous/sqlua.nvim")
 end)
 
 -- Set leader key
@@ -76,10 +80,8 @@ vim.opt.hlsearch = false
 vim.opt.wrap = false
 
 -- Set colorscheme
-require("onedark").setup({
-	style = "light",
-})
-require("onedark").load()
+vim.cmd([[let g:gruvbox_contrast_dark = 'hard']])
+vim.cmd([[colorscheme gruvbox]])
 
 -- Enable colorcolumn for markdown docs
 vim.cmd("autocmd FileType markdown set colorcolumn=80")
@@ -99,3 +101,6 @@ require("syntax")
 
 -- Set up auto formatting
 require("formatting")
+
+-- Set up helpers
+require("helpers")
