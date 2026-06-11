@@ -1,11 +1,11 @@
 # Luke Green's dotfiles
 
 These are some pretty simple dotfile configs that get my development setup 90%
-of the way there. I live in Neovim, ~~Tmux~~ Wezterm, and ~~Bash~~ Zsh for all
-of my work, which allows me to spin up my setup with just a few files. Though
-recently I've been expirimenting with Emacs, which may change all of this. I'll
-leave the Neovim confs around regardless of what happens in case they are
-helpful.
+of the way there. I live in Neovim, Tmux, and ~~Bash~~ Zsh for all of my work,
+which allows me to spin up my setup with just a few files. ~~Though recently
+I've been expirimenting with Emacs, which may change all of this. I'll leave the
+Neovim confs around regardless of what happens in case they are helpful.~~ I
+wasn't sold and am back to Neovim after about a week in Emacs.
 
 If you find these useful to you, that's great, but don't count on them not to
 change. In fact, count on them to change often and without warning.
@@ -32,16 +32,12 @@ Also in Emacs, control is caps lock. Always use caps lock.
 This sets up the following programs:
 
 - zsh (default shell on mac, `chsh -s $(which zsh)` on Linux)
-- ~~tmux (install, will be autostarted on shell open)~~ This is no longer auto
-  started in favor of built in multiplexing with wezterm.
+- tmux (install, will be autostarted on shell open)
 - neovim
   - need to install packer for neovim package management
     [here](https://github.com/wbthomason/packer.nvim)) and run `:PackerInstall`
     inside neovim the first time.
-- wezterm terminal emulator (configured in Lua which allows me to dynamically
-  rebind keys based on OS, see [On keybindings](#on-keybindings) for details).
-  It's a fine terminal emulator, but Lua for config is great, font ligatures are
-  nice, and built in themes are a bonus.
+- [ghostty](https://ghostty.org/)
 - Lots of programming language specific stuff in `zshenv` - just delete lines if
   you don't need support for that lang/don't have it installed.
 - Emacs with support for the stuff I do (may go away, I'm experimenting)

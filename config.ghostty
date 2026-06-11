@@ -1,0 +1,4 @@
+theme = "Gruvbox Dark Hard"
+cursor-style = block
+shell-integration-features = no-cursor
+key-remap = cmd=ctrl

@@ -18,6 +18,11 @@ mkdir -p ~/.config/nvim
 ln -s "$(pwd)/vim/init.lua" ~/.config/nvim/init.lua
 ln -s "$(pwd)/vim/lua" ~/.config/nvim
 
+[ -d ~/.config/ghostty.bak ] && rm -rf ~/.config/ghostty.bak
+[ -d ~/.config/ghostty ] && mv -f ~/.config/ghostty ~/.config/ghostty.bak
+mkdir -p ~/.config/ghostty
+ln -s "$(pwd)/config.ghostty" ~/.config/ghostty/config.ghostty
+
 [ -d ~/.local/bin ] || mkdir -p ~/.local/bin
 ln -sf $(pwd)/bin/* ~/.local/bin/
 
