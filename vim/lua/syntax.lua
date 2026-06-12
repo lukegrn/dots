@@ -1,5 +1,5 @@
 -- Tree sitter config
-local tree_sitter_langs = { "python", "go", "lua", "tsx", "typescript", "bash", "http", "json" }
+local tree_sitter_langs = { "python", "go", "lua", "tsx", "typescript", "bash", "http", "json", "tcl" }
 
 require("nvim-treesitter.configs").setup({
 	ensure_installed = tree_sitter_langs,

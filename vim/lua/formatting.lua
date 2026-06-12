@@ -13,6 +13,7 @@ require("conform").setup({
 		sh = { "shfmt" },
 		go = { "gofmt" },
 		ocaml = { "ocamlformat" },
+		tcl = { "tclfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,

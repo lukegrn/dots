@@ -58,3 +58,15 @@ lsp.ocamllsp.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
+
+-- Tcl/tk
+-- -- If not install, do so with pip install tclint
+lsp.tclsp.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lsp.yamlls.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
