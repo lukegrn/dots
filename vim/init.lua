@@ -5,61 +5,83 @@
 -- - nvim-treesitter for syntax highlighting
 -- - neoformat to format code automatically
 
-require("packer").startup(function()
-	use("wbthomason/packer.nvim")
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	if vim.v.shell_error ~= 0 then
+		vim.api.nvim_echo({
+			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+			{ out, "WarningMsg" },
+			{ "\nPress any key to exit..." },
+		}, true, {})
+		vim.fn.getchar()
+		os.exit(1)
+	end
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Make sure to setup `mapleader` and `maplocalleader` before
+-- loading lazy.nvim so that mappings are correct.
+-- This is also a good place to setup other settings (vim.opt)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+require("lazy").setup({
+	{ "wbthomason/packer.nvim" },
 
 	-- LSP
-	use("neovim/nvim-lspconfig")
+	{ "neovim/nvim-lspconfig" },
 
 	-- Completion
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-cmdline")
-	use("hrsh7th/cmp-path")
+	{ "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/cmp-path" },
 
 	-- Git integration
-	use("tpope/vim-fugitive")
+	{ "tpope/vim-fugitive" },
 
 	-- Comment/uncomment lines/whole selections
-	use("tpope/vim-commentary")
+	{ "tpope/vim-commentary" },
 
 	-- Show git changes in gutter
-	use("mhinz/vim-signify")
+	{ "mhinz/vim-signify" },
 
 	-- Infer indentation rules
 	-- This is just a guideline because you should be auto-formatting
-	use("tpope/vim-sleuth")
+	{ "tpope/vim-sleuth" },
 
 	-- Consistent syntax highlighting across languages
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
-	})
+		branch = "main",
+		lazy = false,
+		build = ":TSUpdate",
+	},
 
 	-- Fuzzy Finding
-	use({
+	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
-		requires = { { "nvim-lua/plenary.nvim" } },
-	})
+		version = "v0.2.1",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			-- optional but recommended
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+	},
 
 	-- Auto formatter
-	use("stevearc/conform.nvim")
+	{ "stevearc/conform.nvim" },
 
 	-- Theme
-	use("gruvbox-community/gruvbox")
+	{ "gruvbox-community/gruvbox" },
 
 	-- Database interaction
-	use("xemptuous/sqlua.nvim")
-end)
-
--- Set leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+	{ "xemptuous/sqlua.nvim" },
+})
 
 -- Show line numbers
 vim.opt.number = true

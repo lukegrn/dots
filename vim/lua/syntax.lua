@@ -1,14 +1,3 @@
 -- Tree sitter config
-local tree_sitter_langs = { "python", "go", "lua", "tsx", "typescript", "bash", "http", "json", "tcl" }
-
-require("nvim-treesitter.configs").setup({
-	ensure_installed = tree_sitter_langs,
-	sync_install = false,
-	auto_install = true,
-	highlight = {
-		enable = tree_sitter_langs,
-	},
-	indent = {
-		enable = true,
-	},
-})
+-- Make sure tree sitter cli is installed with `cargo binstall tree-sitter-cli`
+require("nvim-treesitter").install({ "python", "go", "lua", "tsx", "typescript", "bash", "http", "json", "tcl" })
