@@ -22,6 +22,7 @@ local langs = {
 	"rust_analyzer", -- If not installed, do so with rustup component add rust-analyzer
 	"ocamllsp", -- If not installed, do so with opam install ocaml-lsp-server
 	"tclsp", -- If not installed, do so with pip install tclint
+	"clangd", -- If not installed, dnf/brew install clangd/llvm
 }
 
 vim.lsp.config("*", {

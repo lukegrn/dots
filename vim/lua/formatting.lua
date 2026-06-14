@@ -14,6 +14,8 @@ require("conform").setup({
 		go = { "gofmt" },
 		ocaml = { "ocamlformat" },
 		tcl = { "tclfmt" },
+		c = { "clang-format " },
+		cpp = { "clang-format " },
 	},
 	format_on_save = {
 		timeout_ms = 500,

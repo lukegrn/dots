@@ -3,7 +3,7 @@
 -- - nvim-lspconfig and everything that goes with it
 -- - nvim-cmp for completion via lsp
 -- - nvim-treesitter for syntax highlighting
--- - neoformat to format code automatically
+-- - conform to format code automatically
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -77,7 +77,14 @@ require("lazy").setup({
 	{ "stevearc/conform.nvim" },
 
 	-- Theme
-	{ "gruvbox-community/gruvbox" },
+	{
+		"tinted-theming/tinted-nvim",
+		priority = 1000, -- load colorscheme early
+		lazy = false, -- apply on startup
+		opts = {
+			default_scheme = "base16-tomorrow-night",
+		},
+	},
 
 	-- Database interaction
 	{ "xemptuous/sqlua.nvim" },
@@ -100,10 +107,6 @@ vim.opt.hlsearch = false
 
 -- Don't wrap lines
 vim.opt.wrap = false
-
--- Set colorscheme
-vim.cmd([[let g:gruvbox_contrast_dark = 'hard']])
-vim.cmd([[colorscheme gruvbox]])
 
 -- Enable colorcolumn for markdown docs
 vim.cmd("autocmd FileType markdown set colorcolumn=80")

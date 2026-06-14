@@ -1,4 +1,4 @@
-theme = "Gruvbox Dark Hard"
+theme = "Tomorrow Night"
 cursor-style = block
 shell-integration-features = no-cursor
 
@@ -26,3 +26,7 @@ keybind = cmd+w=text:\x17
 keybind = cmd+x=text:\x18
 keybind = cmd+y=text:\x19
 keybind = cmd+z=text:\x1A
+keybind = cmd+\=text:\x1C
+
+keybind = cmd+shift+c=copy_to_clipboard
+keybind = cmd+shift+v=paste_from_clipboard
