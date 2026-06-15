@@ -34,9 +34,7 @@ This sets up the following programs:
 - zsh (default shell on mac, `chsh -s $(which zsh)` on Linux)
 - tmux (install, will be autostarted on shell open)
 - neovim
-  - need to install packer for neovim package management
-    [here](https://github.com/wbthomason/packer.nvim)) and run `:PackerInstall`
-    inside neovim the first time.
+  - Uses lazy.nvim for package management, should auto-install on first startup
 - [ghostty](https://ghostty.org/)
 - Lots of programming language specific stuff in `zshenv` - just delete lines if
   you don't need support for that lang/don't have it installed.
