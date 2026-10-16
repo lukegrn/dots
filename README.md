@@ -34,6 +34,13 @@ This sets up the following programs:
 - Lots of programming language specific stuff in `zshenv` - just delete lines if
   you don't need support for that lang/don't have it installed.
 
+## A note on notetaking
+
+This actually doesn't work right now, as the crucial latex template and filter
+for pandoc are not committed yet. Those, along with fonts, need to be added. I
+have this working locally but have yet to get it all configured for this dotfile
+repo. Watch [1](https://github.com/lukegrn/dots/issues/1) for updates.
+
 ## Customization
 
 Don't be silly and commit sensitive keys to your shellrc - this looks for a
