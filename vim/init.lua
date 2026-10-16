@@ -129,3 +129,6 @@ require("formatting")
 
 -- Set up helpers
 require("helpers")
+
+-- Set up note taking
+require("notes")

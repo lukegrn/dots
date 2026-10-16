@@ -37,6 +37,7 @@ PROMPT='[$?] %n:%~${vcs_info_msg_0_}$ '
 
 # Misc env vars
 export EDITOR=nvim
+export JOURNAL_DIR="$HOME/notes/journal"
 
 # Helpful functions
 jqless() {
@@ -59,6 +60,22 @@ venvd() {
 		return 1
 	else
 		source "$1/bin/activate"
+	fi
+}
+
+mkjournal() {
+	YEAR=$(date "+%Y")
+	TODAY=$(date "+%Y-%m-%d")
+
+	if [[ ! -d "$JOURNAL_DIR/$YEAR" ]]; then
+		mkdir -p "$JOURNAL_DIR/$YEAR"
+	fi
+
+	if [[ -f "$JOURNAL_DIR/$YEAR/$TODAY.md" ]]; then
+		echo "Journal for $TODAY already exists"
+	else
+		touch "$JOURNAL_DIR/$YEAR/$TODAY.md"
+		echo "Created journal at $JOURNAL_DIR/$YEAR/$TODAY.md"
 	fi
 }
 
